@@ -32,44 +32,61 @@ const bookModel = mongoose.model('book', bookSchema);
 const ownerModel = mongoose.model('owner', ownerSchema);
 
 function seedBookCollection() {
-    const Light = new bookModel({
-        bookName: 'Light',
-        description: 'One of the most underrated prose writers demonstrates the literary firepower of science fiction at its best. Three narrative strands – spanning far-future space opera, contemporary unease and virtual-reality pastiche – are braided together for a breathtaking metaphysical voyage in pursuit of the mystery at the heart of reality.',
-        urlImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwwPWh_fnncXcnbYePfsLUTXEPpcVH8i0_A&usqp=CAU'
+    const HarryPotter = new bookModel({
+        bookName: 'Harry Potter and the Goblet of Fire',
+        description: 'A generation grew up on Rowling’s all-conquering magical fantasies, but countless adults have also been enthralled by her immersive world. Book four, the first of the doorstoppers, marks the point where the series really takes off. The Triwizard Tournament provides pace and tension, and Rowling makes her boy wizard look death in the eye for the first time.',
+        urlImg: 'https://i5.walmartimages.com/asr/810803e8-a900-48da-9f51-0163df609898_1.8b89af58642b89f54d225ef6ff2cb43a.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff'
     });
-    const Light1 = new bookModel({
-        bookName: 'Light',
-        description: 'One of the most underrated prose writers demonstrates the literary firepower of science fiction at its best. Three narrative strands – spanning far-future space opera, contemporary unease and virtual-reality pastiche – are braided together for a breathtaking metaphysical voyage in pursuit of the mystery at the heart of reality.',
-        urlImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwwPWh_fnncXcnbYePfsLUTXEPpcVH8i0_A&usqp=CAU'
+    const HalfOfYellowSun = new bookModel({
+        bookName: 'Half of a Yellow Sun',
+        description: 'When Nigerian author Adichie was growing up, the Biafran war “hovered over everything”. Her sweeping, evocative novel, which won the Orange prize, charts the political and personal struggles of those caught up in the conflict and explores the brutal legacy of colonialism in Africa.',
+        urlImg: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327934717l/18749.jpg'
     });
-    
-    Light.save();
-    Light1.save();
+
+    HarryPotter.save();
+    HalfOfYellowSun.save();
 }
-seedBookCollection();
+// seedBookCollection();
 
 function seedOwnerCollection() {
     const haneen = new ownerModel({
         ownerEmail: 'aabonser@gmail.com',
         books: [
             {
-                bookName: 'Light',
-                description: 'One of the most underrated prose writers demonstrates the literary firepower of science fiction at its best. Three narrative strands – spanning far-future space opera, contemporary unease and virtual-reality pastiche – are braided together for a breathtaking metaphysical voyage in pursuit of the mystery at the heart of reality.',
-                urlImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwwPWh_fnncXcnbYePfsLUTXEPpcVH8i0_A&usqp=CAU'
+                bookName: 'Harry Potter and the Goblet of Fire',
+                description: 'A generation grew up on Rowling’s all-conquering magical fantasies, but countless adults have also been enthralled by her immersive world. Book four, the first of the doorstoppers, marks the point where the series really takes off. The Triwizard Tournament provides pace and tension, and Rowling makes her boy wizard look death in the eye for the first time.',
+                urlImg: 'https://i5.walmartimages.com/asr/810803e8-a900-48da-9f51-0163df609898_1.8b89af58642b89f54d225ef6ff2cb43a.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff'
             },
             {
-                bookName: 'Light1',
-                description: '1One of the most underrated prose writers demonstrates the literary firepower of science fiction at its best. Three narrative strands – spanning far-future space opera, contemporary unease and virtual-reality pastiche – are braided together for a breathtaking metaphysical voyage in pursuit of the mystery at the heart of reality.',
-                urlImg: '2https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwwPWh_fnncXcnbYePfsLUTXEPpcVH8i0_A&usqp=CAU'
+                bookName: 'Half of a Yellow Sun',
+                description: 'When Nigerian author Adichie was growing up, the Biafran war “hovered over everything”. Her sweeping, evocative novel, which won the Orange prize, charts the political and personal struggles of those caught up in the conflict and explores the brutal legacy of colonialism in Africa.',
+                urlImg: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327934717l/18749.jpg'
+            }
+        ]
+    })
+
+    const zienab = new ownerModel({
+        ownerEmail: 'yahyazainab204@gmail.com',
+        books: [
+            {
+                bookName: 'Harry Potter and the Goblet of Fire',
+                description: 'A generation grew up on Rowling’s all-conquering magical fantasies, but countless adults have also been enthralled by her immersive world. Book four, the first of the doorstoppers, marks the point where the series really takes off. The Triwizard Tournament provides pace and tension, and Rowling makes her boy wizard look death in the eye for the first time.',
+                urlImg: 'https://i5.walmartimages.com/asr/810803e8-a900-48da-9f51-0163df609898_1.8b89af58642b89f54d225ef6ff2cb43a.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff'
+            },
+            {
+                bookName: 'Half of a Yellow Sun',
+                description: 'When Nigerian author Adichie was growing up, the Biafran war “hovered over everything”. Her sweeping, evocative novel, which won the Orange prize, charts the political and personal struggles of those caught up in the conflict and explores the brutal legacy of colonialism in Africa.',
+                urlImg: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327934717l/18749.jpg'
             }
         ]
     })
 
     haneen.save();
+    zienab.save()
 }
 
 
-seedOwnerCollection();
+// seedOwnerCollection();
 
 app.get('/', homePageHandler);
 app.get('/books', getBooksHandler);
