@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+
 
 const PORT = process.env.PORT;
 
@@ -90,6 +92,8 @@ function seedOwnerCollection() {
 
 app.get('/', homePageHandler);
 app.get('/books', getBooksHandler);
+app.post('/addBook', addBooksHandler);
+app.delete('/deleteBook/:index', deleteBooksHandler);
 
 //http://localhost:3001/books?email=aabonser@gmail.com
 function getBooksHandler(req, res) {
@@ -107,6 +111,43 @@ function getBooksHandler(req, res) {
     })
 }
 
+
+function addBooksHandler(req, res){
+
+    const {bookName, description, urlImg, ownerEmail} = req.body;
+    console.log(bookName);
+
+    ownerModel.find({email:ownerEmail}, (error, ownerData)=>{
+        if(error){
+            res.send('did not work')
+        } else{
+            ownerData[0].books.push({
+                bookName: bookName,
+                description: description,
+                urlImg: urlImg
+            })
+            ownerData[0].save();
+            res.send(ownerData[0].books)
+        }
+    })
+}
+
+function deleteBooksHandler(req, res) {
+    const {ownerEmail} = req.query;
+
+    const index = Number(req.params.index)
+
+    ownerModel.find({email:email}, (error, ownerData)=>{
+        const newBookArr = ownerData[0].books.filter((book,idx)=>{
+            if (idx !== index) {
+                return book;
+            }
+        })
+        ownerData[0].books = newBookArr;
+        ownerData[0].save();
+        res.send(ownerData[0].books);
+    })
+}
 function homePageHandler(req, res) {
     res.send('Hello from the homePage')
 }
