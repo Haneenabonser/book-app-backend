@@ -94,6 +94,8 @@ app.get('/', homePageHandler);
 app.get('/books', getBooksHandler);
 app.post('/addBook', addBooksHandler);
 app.delete('/deleteBook/:index', deleteBooksHandler);
+app.put('/updatebook/:index', updateBookHandler);
+
 
 //http://localhost:3001/books?email=aabonser@gmail.com
 function getBooksHandler(req, res) {
@@ -117,7 +119,7 @@ function addBooksHandler(req, res){
     const {bookName, description, urlImg, ownerEmail} = req.body;
     console.log(bookName);
 
-    ownerModel.find({email:ownerEmail}, (error, ownerData)=>{
+    ownerModel.find({ownerEmail:ownerEmail}, (error, ownerData)=>{
         if(error){
             res.send('did not work')
         } else{
@@ -137,7 +139,7 @@ function deleteBooksHandler(req, res) {
 
     const index = Number(req.params.index)
 
-    ownerModel.find({email:email}, (error, ownerData)=>{
+    ownerModel.find({ownerEmail:ownerEmail}, (error, ownerData)=>{
         const newBookArr = ownerData[0].books.filter((book,idx)=>{
             if (idx !== index) {
                 return book;
@@ -148,6 +150,32 @@ function deleteBooksHandler(req, res) {
         res.send(ownerData[0].books);
     })
 }
+
+
+
+function updateBookHandler(req, res) {
+
+  console.log(req.body);
+  console.log(req.params.index);
+
+  const { bookName, description, urlImg, ownerEmail } = req.body;
+  const index = Number(req.params.index);
+
+  ownerModel.findOne({ ownerEmail: ownerEmail }, (error, ownerData) => {
+    console.log(ownerData);
+    ownerData.books.splice(index, 1, {
+      bookName: bookName,
+      description: description,
+      urlImg: urlImg,
+    })
+
+    ownerData.save();
+    console.log(ownerData)
+    res.send(ownerData.books)
+  })
+
+}
+
 function homePageHandler(req, res) {
     res.send('Hello from the homePage')
 }
