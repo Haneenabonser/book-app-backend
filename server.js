@@ -12,9 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
-mongoose.connect('mongodb://localhost:27017/books',
+mongoose.connect(`${process.env.MONGODB_URI}`,
     { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -88,7 +88,7 @@ function seedOwnerCollection() {
 }
 
 
-// seedOwnerCollection();
+seedOwnerCollection();
 
 app.get('/', homePageHandler);
 app.get('/books', getBooksHandler);
